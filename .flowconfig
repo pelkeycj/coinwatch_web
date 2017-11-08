@@ -1,0 +1,11 @@
+
+[ignore]
+./build
+./public
+
+[include]
+./src
+
+[libs]
+
+[options]
