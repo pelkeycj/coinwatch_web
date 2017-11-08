@@ -10,7 +10,8 @@ type Props = {
   meta: Object,
 };
 
-const Input = ({ input, label, type, placeholder, style, meta }: Props) =>
+const Input = ({
+  input, label, type, placeholder, style, meta }: Props) =>
   (
     <div>
       {label && <label htmlFor={input.name}>{label}</label>}

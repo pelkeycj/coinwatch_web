@@ -15,7 +15,7 @@ export function signin(data, router) {
     });
 }
 
-export function signup(data, router) {
+export function register(data, router) {
   return dispatch => api.post('/users', data)
     .then((resp) => {
       setCurrentUser(dispatch, resp);

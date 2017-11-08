@@ -4,7 +4,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 //  import { Link } from 'react-router';
 import { css, StyleSheet } from 'aphrodite';
-import Input from '../Input';
+import Input from './Input';
 
 const styles = StyleSheet.create({
   card: {

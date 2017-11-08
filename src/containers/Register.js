@@ -5,7 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { register } from '../actions/session'; //TODO
+import { register } from '../actions/session';
 import RegisterForm from '../components/RegisterForm';
 
 type Props = {
@@ -25,7 +25,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      //TODO navbar and styling
+      //  TODO navbar and styling
       <RegisterForm onSubmit={this.handleRegister} />
     );
   }
