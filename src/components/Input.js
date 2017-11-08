@@ -25,4 +25,6 @@ const Input = ({ input, label, type, placeholder, style, meta }: Props) =>
         <div style={{ fontSize: '85%', color: 'rgb(255,59,48)' }}>{meta.error}</div>
       }
     </div>
-);
+  );
+
+export default Input;
