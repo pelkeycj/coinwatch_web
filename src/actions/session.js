@@ -6,6 +6,13 @@ function setCurrentUser(dispatch, resp) {
   dispatch({ type: 'AUTH_SUCCESS', resp });
 }
 
+export function authenticate(data) {
+  return dispatch => api.post('/session/refresh', data)
+    .then((resp) => {
+      setCurrentUser(dispatch, resp);
+    });
+}
+
 export function signin(data, router) {
   return dispatch => api.post('/session', data)
     .then((resp) => {
