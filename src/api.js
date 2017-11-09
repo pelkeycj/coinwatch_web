@@ -3,7 +3,6 @@
 const API = process.env.REACT_APP_API_URL;
 
 function headers() {
-  console.log('building header');
   const token = JSON.parse(localStorage.getItem('token'));
 
   const auth = 'Bearer: '.concat(token);
@@ -15,13 +14,10 @@ function headers() {
 }
 
 function parseResponse(resp) {
-  console.log("checking response", resp);
   return resp.json().then((json) => {
     if (!resp.ok) {
-      console.log('bad', resp);
       return Promise.reject(json);
     }
-    console.log(resp);
     return json;
   });
 }
