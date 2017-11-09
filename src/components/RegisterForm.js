@@ -21,6 +21,12 @@ type Props = {
 }
 
 class RegisterForm extends React.Component {
+  constructor() {
+    super();
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   props: Props
 
   handleSubmit(data) {

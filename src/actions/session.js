@@ -1,5 +1,7 @@
+import React from 'react';
 import { reset } from 'redux-form';
 import api from '../api';
+import { Redirect } from 'react-router-dom';
 
 function setCurrentUser(dispatch, resp) {
   localStorage.setItem('token', JSON.stringify(resp.meta.token));
@@ -10,8 +12,7 @@ export function signin(data, router) {
   return dispatch => api.post('/session', data)
     .then((resp) => {
       setCurrentUser(dispatch, resp);
-      dispatch(reset('signin'));
-      router.transitionTo('/'); //  TODO  change to watching page?
+      router.history.push('/')
     });
 }
 
@@ -20,7 +21,7 @@ export function register(data, router) {
     .then((resp) => {
       setCurrentUser(dispatch, resp);
       dispatch(reset('signup'));
-      router.transitionTo('/'); //  TODO change to watching page?
+      router.history.push('/');
     });
 }
 
@@ -29,6 +30,6 @@ export function signout(router) {
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'SIGNOUT' });
-      router.transitionTo('/');
+      router.history.push('/')
     });
 }

@@ -4,6 +4,7 @@ const API = process.env.REACT_APP_API_URL;
 
 function headers() {
   const token = JSON.parse(localStorage.getItem('token'));
+
   const auth = 'Bearer: '.concat(token);
   return {
     Accept: 'application/json',
@@ -17,6 +18,7 @@ function parseResponse(resp) {
     if (!resp.ok) {
       return Promise.reject(json);
     }
+    console.log(resp);
     return json;
   });
 }

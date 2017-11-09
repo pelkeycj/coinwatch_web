@@ -17,10 +17,15 @@ class Register extends React.Component {
     router: PropTypes.object,
   };
 
+  constructor() {
+    super();
+    this.handleRegister = this.handleRegister.bind(this);
+  }
+
   props: Props
 
   handleRegister(data) {
-    this.props.register(data, this.context.router);
+    this.props.register({ user: data }, this.context.router);
   }
 
   render() {
