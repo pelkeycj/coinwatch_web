@@ -17,6 +17,12 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         currentUser: {},
       };
+    case 'SIGNIN':
+      return {
+        ...state,
+        isAuthenticated: true,
+        currentUser: action.resp.data,
+      };
     default:
       return state;
   }

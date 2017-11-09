@@ -7,6 +7,7 @@ function setCurrentUser(dispatch, resp) {
 }
 
 export function signin(data, router) {
+  console.log('signing in . . .');
   return dispatch => api.post('/session', data)
     .then((resp) => {
       setCurrentUser(dispatch, resp);
@@ -24,10 +25,8 @@ export function register(data, router) {
 }
 
 export function signout(router) {
-  console.log('signing out ... ');
   return dispatch => api.delete('/session')
     .then(() => {
-      console.log("delete performed");
       localStorage.removeItem('token');
       dispatch({ type: 'SIGNOUT' });
       router.history.push('/');

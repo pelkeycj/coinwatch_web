@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Register from './Register';
 import { signout } from '../actions/session';
+import Signin from './Signin';
 
 
 type Props = {
@@ -38,12 +39,19 @@ class Home extends React.Component {
 
     return (
       <div>
-        <Link to="/register" component={Register}>Sign up</Link>
+        {!isAuthenticated &&
+          <div>
+            <Link to="/register" component={Register}>Sign Up</Link>
+            <br/>
+            <Link to="/signin" component={Signin}>Sign In</Link>
+          </div>
+        }
         {isAuthenticated &&
           <div>
             <span>{currentUser.username}</span>
             <button type="button" onClick={this.handleLogout}>Sign out</button>
-          </div>}
+          </div>
+        }
       </div>
     );
   }
