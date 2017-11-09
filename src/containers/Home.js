@@ -11,7 +11,7 @@ import { signout } from '../actions/session';
 
 
 type Props = {
-  logout: () => void,
+  signout: () => void,
   currentUser: Object,
   isAuthenticated: boolean,
 };
@@ -30,7 +30,7 @@ class Home extends React.Component {
 
   handleLogout() {
     console.log('logout', this.context.router);
-    this.props.logout(this.context.router);
+    this.props.signout(this.context.router);
   }
 
   render() {

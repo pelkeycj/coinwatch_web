@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         currentUser: action.resp.data,
       };
-    case 'LOGOUT':
+    case 'SIGNOUT':
       return {
         ...state,
         isAuthenticated: false,
