@@ -14,12 +14,12 @@ type Props = {
   logout: () => void,
   currentUser: Object,
   isAuthenticated: boolean,
-}
+};
 
 class Home extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
-  }
+  };
 
   constructor() {
     super();
@@ -29,6 +29,7 @@ class Home extends React.Component {
   props: Props
 
   handleLogout() {
+    console.log('logout', this.context.router);
     this.props.logout(this.context.router);
   }
 
