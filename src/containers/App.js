@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'; //  to connect to store
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { authenticate } from '../actions/session'; //  authenticate on mount
+import { connectToChannel } from '../actions/channel';
 import Home from './Home';
 import Register from './Register';
 import Signin from './Signin';
@@ -12,6 +13,7 @@ import Signin from './Signin';
 
 type Props = {
   authenticate: () => void,
+  connectToChannel: () => void,
 }
 
 class App extends Component {
@@ -22,6 +24,7 @@ class App extends Component {
     if (token) {
       this.props.authenticate();
     }
+    this.props.connectToChannel();
   }
 
   props: Props
@@ -33,6 +36,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/signin" component={Signin} />
+          {/* TODO add a watching page, ensure auth */}
         </Switch>
       </BrowserRouter>
     );
@@ -41,5 +45,5 @@ class App extends Component {
 
 export default connect(
   null, //  the state?
-  { authenticate }, //  the action to perform
+  { authenticate, connectToChannel }, //  the action to perform
 )(App);
