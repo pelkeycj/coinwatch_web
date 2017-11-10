@@ -2,15 +2,22 @@
 * Handles channel actions
 */
 
-//  TODO ensure thi is valid
-//  how are incoming messages sent?
 export default function (state = null, action) {
   switch (action.type) {
-    case 'TEST':
-      console.log('in channel reducer');
+    case 'CHANNEL_JOIN_SUCCESS':
       return {
-        state
+        ...state,
+        market_data: action.resp.market_data,
       };
+    case 'CHANNEL_JOIN_ERROR':
+      return {
+        ...state,
+      };
+    case 'NEW_MARKET_DATA':
+      return {
+        ...state,
+        market_data: action.resp.market_data,
+      }
     default:
       return state;
   }
