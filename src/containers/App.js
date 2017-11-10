@@ -33,6 +33,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/signin" component={Signin} />
+          {/* TODO add a watching page, ensure auth */}
         </Switch>
       </BrowserRouter>
     );
