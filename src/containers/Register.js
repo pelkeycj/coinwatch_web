@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { register } from '../actions/session';
 import RegisterForm from '../components/RegisterForm';
+import Navbar from './Navbar';
 
 type Props = {
   register: () => void,
@@ -30,8 +31,10 @@ class Register extends React.Component {
 
   render() {
     return (
-      //  TODO navbar and styling
-      <RegisterForm onSubmit={this.handleRegister} />
+      <div>
+        <Navbar />
+        <RegisterForm onSubmit={this.handleRegister} />
+      </div>
     );
   }
 }

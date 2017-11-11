@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Register from './Register';
 import { signout } from '../actions/session';
 import Signin from './Signin';
+import Navbar from './Navbar';
 
 
 type Props = {
@@ -30,7 +31,6 @@ class Home extends React.Component {
   props: Props
 
   handleLogout() {
-    console.log('logout', this.context.router);
     this.props.signout(this.context.router);
   }
 
@@ -39,10 +39,11 @@ class Home extends React.Component {
 
     return (
       <div>
+        <Navbar />
         {!isAuthenticated &&
           <div>
             <Link to="/register" component={Register}>Sign Up</Link>
-            <br/>
+            <br />
             <Link to="/signin" component={Signin}>Sign In</Link>
           </div>
         }

@@ -1,5 +1,4 @@
 import { reset } from 'redux-form';
-import { connectToChannel } from './channel';
 import api from '../api';
 
 function setCurrentUser(dispatch, resp) {
@@ -11,7 +10,6 @@ export function authenticate(data) {
   return dispatch => api.post('/session/refresh', data)
     .then((resp) => {
       setCurrentUser(dispatch, resp);
-      connectToChannel(dispatch);
     });
 }
 

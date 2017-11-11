@@ -2,7 +2,11 @@
 * Handles channel actions
 */
 
-export default function (state = null, action) {
+const initialState = {
+  market_data: null,
+};
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case 'CHANNEL_JOIN_SUCCESS':
       return {
@@ -17,7 +21,7 @@ export default function (state = null, action) {
       return {
         ...state,
         market_data: action.resp.market_data,
-      }
+      };
     default:
       return state;
   }
