@@ -12,8 +12,8 @@ type Props = {
   removeWatching: () => void,
   isAuthenticated: boolean,
   currentUser: Object,
-  market_data: Object,
-  state: Object,
+  watched: Object,
+  unwatched: Object,
   adding: boolean,
 }
 
@@ -22,31 +22,7 @@ class Watching extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      watched: [],
-      unwatched: [],
-    }
-
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.setMarkets = this.setMarkets.bind(this);
-  }
-
-  componentWillMount() {
-    console.log('setting markets from will mount');
-    this.setMarkets();
-  }
-
-  setMarkets() {
-    console.log('setting markets');
-    const { isAuthenticated, currentUser, market_data } = this.props;
-    let bins;
-
-    if (isAuthenticated) {
-      bins = filterWatching(market_data, currentUser.markets);
-      this.setState({ watched: bins.watched, unwatched: bins.unwatched });
-    }
-    console.log("watched", this.state.watched);
-    console.log("unwatched", this.state.unwatched);
   }
 
   props: Props
@@ -57,40 +33,24 @@ class Watching extends React.Component {
     } else {
       this.props.removeWatching(data);
     }
-    this.setMarkets();
     this.forceUpdate();
   }
 
   render() {
-    const { adding, currentUser } = this.props;
-    //const { state, isAuthenticated, currentUser, adding } = this.props;
-    //const market_data = state.channel.market_data;
+    const { watched, unwatched, isAuthenticated, currentUser, adding } = this.props;
     let header;
     let data;
-    //let bins;
-    //let data;
-
-    //if (isAuthenticated) {
-    //  bins = filterWatching(market_data, currentUser.markets);
-    // }
 
     if (!adding) {
       header = 'Watched Markets';
-      data = this.state.watched;
-      /*
-      if (isAuthenticated && bins) {
-        data = bins.watched;
-      }
-      */
+      data = watched;
     } else {
       header = 'Watch New Markets';
-      data = this.state.unwatched;
-      /*
-      if (isAuthenticated && bins) {
-        data = bins.unwatched;
-      }
-      */
+      data = unwatched;
     }
+
+    console.log('watched', watched);
+    console.log('unwatched', unwatched);
 
     return (
       <div>
@@ -99,7 +59,7 @@ class Watching extends React.Component {
         {!adding &&
           <Link to="/watching/new">add</Link>
         }
-        {data &&
+        {isAuthenticated && data &&
           data.map((market) => {
             return (
               <Market
@@ -118,10 +78,11 @@ class Watching extends React.Component {
 
 export default connect(
   state => ({
-    state: state,
     isAuthenticated: state.session.isAuthenticated,
+    watched: state.session.currentUser.markets,
+    unwatched: filterWatching(state.channel.market_data,
+      state.session.currentUser.markets).unwatched,
     currentUser: state.session.currentUser,
-    market_data: state.channel.market_data,
   }),
   { addWatching, removeWatching },
 )(Watching);

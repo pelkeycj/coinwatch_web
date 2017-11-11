@@ -12,12 +12,9 @@ export default function (state = initialState, action) {
       return {
         ...state,
         market_data: action.resp.market_data,
-
       };
     case 'CHANNEL_JOIN_ERROR':
-      return {
-        ...state,
-      };
+      return state;
     case 'NEW_MARKET_DATA':
       return {
         ...state,
