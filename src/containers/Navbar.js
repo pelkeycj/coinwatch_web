@@ -40,7 +40,7 @@ class Navbar extends React.Component {
         <span>   </span>
         {isAuthenticated &&
           <div style={{ display: 'inline'}}>
-            <Link to="/Watching" component={Watching}>Watching</Link>
+            <Link to="/watching" component={Watching}>Watching</Link>
             <span> {currentUser.username} | </span>
             <button type="link" onClick={this.handleLogout}>Sign Out</button>
           </div>

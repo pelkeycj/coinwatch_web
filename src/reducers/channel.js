@@ -3,7 +3,7 @@
 */
 
 const initialState = {
-  market_data: null,
+  market_data: [],
 };
 
 export default function (state = initialState, action) {
@@ -14,9 +14,7 @@ export default function (state = initialState, action) {
         market_data: action.resp.market_data,
       };
     case 'CHANNEL_JOIN_ERROR':
-      return {
-        ...state,
-      };
+      return state;
     case 'NEW_MARKET_DATA':
       return {
         ...state,

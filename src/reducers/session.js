@@ -5,8 +5,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        isAuthenticated: true,
+        currentUser: action.resp.data,
+      }
     case 'AUTH_SUCCESS':
-      console.log(action.resp.data);
       return {
         ...state,
         isAuthenticated: true,
