@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Register from './Register';
 import { signout } from '../actions/session';
 import Signin from './Signin';
+import Navbar from './Navbar';
 
 
 type Props = {
@@ -38,6 +39,7 @@ class Home extends React.Component {
 
     return (
       <div>
+        <Navbar />
         {!isAuthenticated &&
           <div>
             <Link to="/register" component={Register}>Sign Up</Link>

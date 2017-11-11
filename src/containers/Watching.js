@@ -1,8 +1,9 @@
 //  @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Market from '../components/Market';
+import Navbar from './Navbar';
+import { filterWatching } from '../utils/MarketUtils';
 
 type Props = {
   isAuthenticated: boolean,
@@ -11,22 +12,26 @@ type Props = {
   state: Object,
 }
 
-//  TODO actually need to filter to only Watching and sort
 
 class Watching extends React.Component {
 
   props: Props
 
   render() {
-
-    const { state } = this.props;
+    const { state, isAuthenticated, currentUser } = this.props;
     const market_data = state.channel.market_data;
+    let bins;
+
+    if (isAuthenticated) {
+      bins = filterWatching(market_data, currentUser.markets);
+    }
+
     return (
       <div>
+        <Navbar />
         <h1>watching</h1>
-        {console.log(state)}
-        {market_data &&
-          market_data.map((market) => {
+        {bins && bins.watched &&
+          bins.watched.map((market) => {
             return <Market market={market} />
           })}
       </div>
