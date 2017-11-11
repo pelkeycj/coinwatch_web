@@ -16,6 +16,7 @@ class Market extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    console.log('market', this.props.adding);
   }
 
   props: Props
@@ -35,20 +36,19 @@ class Market extends React.Component {
     const market = this.props.market;
     let text;
     if (this.props.adding) {
-      text = 'unwatch';
-    } else {
       text = 'watch';
+    } else {
+      text = 'unwatch';
     }
 
     return (
       <div>
-        <div syle={{ display: 'inline' }}>
+        <div syle={{ display: 'flex' }}>
           <h4>{market.exchange + ":" + market.pair + "   " + market.rate}</h4>
         </div>
-        <div style={{ display: 'inline' }}>
+        <div style={{ display: 'flex' }}>
           <button type="submit" onClick={this.handleSubmit}>{text}</button>
         </div>
-        <p>Updated: {market.updated_at}</p>
       </div>
     );
   }

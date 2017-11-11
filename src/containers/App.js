@@ -10,6 +10,7 @@ import Home from './Home';
 import Register from './Register';
 import Signin from './Signin';
 import Watching from './Watching';
+import AddWatching from './AddWatching';
 
 
 type Props = {
@@ -38,6 +39,7 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/watching" component={Watching} />
+          <Route exact path="/watching/new" component={AddWatching} />
           {/* TODO add a watching page, ensure auth */}
         </Switch>
       </BrowserRouter>
