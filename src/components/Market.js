@@ -1,14 +1,13 @@
 //  @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { addWatching, removeWatching } from '../actions/watching';
+//import { addWatching, removeWatching } from '../actions/watching';
 
 type Props = {
-  addWatching: () => void,
-  removeWatching: () => void,
+  onSubmit: () => void,
   market: Object,
   adding: boolean,
-  currentUser: object,
+  currentUser: Object,
 }
 
 class Market extends React.Component {
@@ -24,11 +23,14 @@ class Market extends React.Component {
     const market_id = this.props.market.id;
     const user_id = this.props.currentUser.id;
 
+/*
     if (this.props.adding) {
       this.props.addWatching({ market_id, user_id });
     } else {
       this.props.removeWatching({ market_id, user_id });
     }
+    */
+    this.props.onSubmit({ market_id, user_id });
   }
 
   render() {
@@ -53,9 +55,4 @@ class Market extends React.Component {
   }
 }
 
-export default connect(
-  state => ({
-    currentUser: state.session.currentUser,
-  }),
-  { addWatching, removeWatching },
-)(Market);
+export default Market;
