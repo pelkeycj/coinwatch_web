@@ -55,7 +55,7 @@ class Watching extends React.Component {
         }
         {bins && data &&
           data.map((market) => {
-            return <Market market={market} adding={adding} />
+            return <Market market={market} adding={adding} key={market.id.toString()} />
           })}
       </div>
     )

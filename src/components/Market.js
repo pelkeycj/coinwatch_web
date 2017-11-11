@@ -16,7 +16,6 @@ class Market extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log('market', this.props.adding);
   }
 
   props: Props

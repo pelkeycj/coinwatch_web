@@ -50,10 +50,12 @@ export default {
       .then(parseResponse);
   },
 
-  delete(url) {
+  delete(url, data) {
+    const body = JSON.stringify(data);
     return fetch(`${API}${url}`, {
       method: 'DELETE',
       headers: headers(),
+      body,
     })
       .then(parseResponse);
   },
