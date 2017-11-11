@@ -30,7 +30,6 @@ class Home extends React.Component {
   props: Props
 
   handleLogout() {
-    console.log('logout', this.context.router);
     this.props.signout(this.context.router);
   }
 
@@ -42,7 +41,7 @@ class Home extends React.Component {
         {!isAuthenticated &&
           <div>
             <Link to="/register" component={Register}>Sign Up</Link>
-            <br/>
+            <br />
             <Link to="/signin" component={Signin}>Sign In</Link>
           </div>
         }

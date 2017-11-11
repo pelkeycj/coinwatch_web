@@ -5,23 +5,14 @@ const API_URL = process.env.REACT_APP_API_URL;
 const SOCKET_URL = API_URL.replace(/(https|http)/, 'ws').replace('/api/0', ''); // is this necessary?
 
 
-function connectSocket() {
-  const token = JSON.parse(localStorage.getItem('token'));
-  const socket = new Socket(`${SOCKET_URL}/socket`, {
-    params: { token },
-  });
-  socket.connect();
-  return socket;
-}
-
 export function connectToChannel() {
   return (dispatch) => {
-    //  const socket = connectSocket();
     const token = JSON.parse(localStorage.getItem('token'));
     const socket = new Socket(`${SOCKET_URL}/socket`, {
       params: { token },
     });
     socket.connect();
+
     const channel = socket.channel('market_data:all');
     channel.join()
       .receive('ok', (resp) => { dispatch({ type: 'CHANNEL_JOIN_SUCCESS', resp }); })

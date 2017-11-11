@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signin } from '../actions/session';
-import  SigninForm from '../components/SigninForm';
+import SigninForm from '../components/SigninForm';
 
 type Props = {
   signin: () => void,
