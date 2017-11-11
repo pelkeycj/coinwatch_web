@@ -79,7 +79,8 @@ class Watching extends React.Component {
 export default connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
-    watched: sortByPair(state.session.currentUser.markets),
+    watched: filterWatching(state.channel.market_data,
+      state.session.currentUser.markets).watched,
     unwatched: filterWatching(state.channel.market_data,
       state.session.currentUser.markets).unwatched,
     currentUser: state.session.currentUser,

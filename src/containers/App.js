@@ -11,6 +11,8 @@ import Register from './Register';
 import Signin from './Signin';
 import Watching from './Watching';
 import AddWatching from './AddWatching';
+import Profile from './Profile';
+import EditProfile from './EditProfile';
 
 
 type Props = {
@@ -40,7 +42,11 @@ class App extends Component {
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/watching" component={Watching} />
           <Route exact path="/watching/new" component={AddWatching} />
-          {/* TODO add a watching page, ensure auth */}
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/profile/edit" component={EditProfile} />
+          {/*TODO we need user profiles
+             TODO probably need to add notifications */}
+          {/* TODO protect routes,  ensure auth */}
         </Switch>
       </BrowserRouter>
     );

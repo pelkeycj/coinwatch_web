@@ -8,6 +8,7 @@ import Home from './Home';
 import Watching from './Watching';
 import Register from './Register';
 import Signin from './Signin';
+import Profile from './Profile';
 
 type Props = {
   isAuthenticated: boolean,
@@ -41,7 +42,9 @@ class Navbar extends React.Component {
         {isAuthenticated &&
           <div style={{ display: 'inline'}}>
             <Link to="/watching" component={Watching}>Watching</Link>
-            <span> {currentUser.username} | </span>
+            <span>    </span>
+            <Link to="/profile" component={Profile}> {currentUser.username}</Link>
+            <span>   |  </span>
             <button type="link" onClick={this.handleLogout}>Sign Out</button>
           </div>
         }
