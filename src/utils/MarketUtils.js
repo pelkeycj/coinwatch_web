@@ -1,11 +1,14 @@
 //  Utility functions for markets
 
-export function sortAlphabetical(markets) {
+export function sortByPair(markets) {
+  if (!markets) {
+    return markets;
+  }
   return markets.sort((a, b) => {
     const exchCompare = a.exchange.localeCompare(b.exchange);
     const pairCompare = a.pair.localeCompare(b.pair);
 
-    return ((exchCompare * 10) + pairCompare);
+    return ((pairCompare * 10) + exchCompare);
   });
 }
 
@@ -30,7 +33,7 @@ export function filterWatching(allMarkets, watchedMarkets) {
   }
 
   return {
-    watched: sortAlphabetical(watched),
-    unwatched: sortAlphabetical(unwatched),
+    watched: sortByPair(watched),
+    unwatched: sortByPair(unwatched),
   };
 }
