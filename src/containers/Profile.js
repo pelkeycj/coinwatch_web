@@ -19,9 +19,6 @@ class Profile extends React.Component {
 
     props: Props
 
-//  TODO need to be able to edit/delete
-//  TODO do we want to render different components based on click?
-
     render() {
       const { currentUser, isAuthenticated } = this.props;
       return (

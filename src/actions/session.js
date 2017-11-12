@@ -31,32 +31,36 @@ export function register(data, router) {
 }
 
 export function signout(router) {
+  console.log('signing out');
   return dispatch => api.delete('/session')
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'SIGNOUT' });
       router.history.push('/');
+      console.log('signed out');
     });
 }
 
 export function editUser(data, router) {
-  console.log('editing action', data);
-  return dispatch => api.patch('/users', data)
+  const url = `/users/${data.id}`;
+  return dispatch => api.patch(url, data)
     .then((resp) => {
       console.log('updated user', resp);
-      setCurrentUser(dispatch, resp);
+      dispatch({ type: 'AUTH_SUCCESS', resp });
       dispatch(reset('edit_profile'));
       router.history.push('/profile');
+      alert('Updated successfully.');
     });
 }
 
+//  TODO using dispatch here is causing it to not work?
 export function deleteUser(data, router) {
-  console.log('deleting . . .');
   const url = `/users/${data.id}`;
-  return dispatch => api.delete(url)
+  return dispatch => api.delete(url, data)
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'SIGNOUT' });
       router.history.push('/');
-    });
+      alert('Deleted successfully');
+    })
 }

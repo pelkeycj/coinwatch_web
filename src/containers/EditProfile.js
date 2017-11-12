@@ -30,8 +30,8 @@ class EditProfile extends React.Component {
   handleDelete() {
     const data = {
       id: this.props.currentUser.id,
-    }
-    deleteUser(data, this.context.router);
+    };
+    this.props.deleteUser(data, this.context.router);
   }
 
   handleEdit(params) {
@@ -40,7 +40,7 @@ class EditProfile extends React.Component {
       user: params,
     };
     console.log('editing. . . ', data);
-    editUser(data, this.context.router)
+    this.props.editUser(data, this.context.router)
   }
 
   render() {
@@ -67,4 +67,4 @@ export default connect(
     isAuthenticated: state.session.isAuthenticated,
   }),
   { editUser, deleteUser },
-)(EditProfile)
+)(EditProfile);

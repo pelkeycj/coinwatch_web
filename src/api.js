@@ -40,9 +40,7 @@ export default {
   },
 
   post(url, data) {
-    console.log('in post');
     const body = JSON.stringify(data);
-
     return fetch(`${API}${url}`, {
       method: 'POST',
       headers: headers(),
@@ -52,7 +50,6 @@ export default {
   },
 
   patch(url, data) {
-    console.log('in patch');
     const body = JSON.stringify(data);
     return fetch(`${API}${url}`, {
       method: 'PATCH',
@@ -63,7 +60,6 @@ export default {
   },
 
   delete(url, data) {
-    console.log('in delete');
     const body = JSON.stringify(data);
     return fetch(`${API}${url}`, {
       method: 'DELETE',
