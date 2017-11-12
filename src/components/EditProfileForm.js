@@ -29,7 +29,6 @@ class EditProfileForm extends React.Component {
   props: Props
 
   handleSubmit(data) {
-    console.log('submitting', this.props.currentUser.id);
     this.props.onSubmit(data);
   }
 
@@ -44,6 +43,7 @@ class EditProfileForm extends React.Component {
           component={Input}
           placeholder="username"
           className="form-control"
+          value={currentUser.username}
         />
         <Field
           name="email"
@@ -80,17 +80,6 @@ class EditProfileForm extends React.Component {
 
 const validate = (values) => {
   const errors = {};
-  if (!values.username) {
-    errors.username = 'Required';
-  }
-  if (!values.email) {
-    errors.email = 'Required';
-  }
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 characters long';
-  }
   if (values.password !== values.password_confirmation) {
     errors.password_confirmation = 'Passwords do not match';
   }

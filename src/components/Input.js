@@ -11,8 +11,7 @@ type Props = {
   value?: string,
 };
 
-const Input = ({
-  input, label, type, placeholder, style, meta, value }: Props) =>
+const Input = ({ input, label, type, placeholder, style, meta, value }: Props) =>
   (
     <div>
       {label && <label htmlFor={input.name}>{label}</label>}
@@ -22,7 +21,7 @@ const Input = ({
         placeholder={placeholder}
         className="form-control"
         style={style && style}
-        value={value}
+        default={value}
       />
       {meta.touched && meta.error &&
         <div style={{ fontSize: '85%', color: 'rgb(255,59,48)' }}>{meta.error}</div>

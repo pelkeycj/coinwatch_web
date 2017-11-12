@@ -39,7 +39,6 @@ class EditProfile extends React.Component {
       id: this.props.currentUser.id,
       user: params,
     };
-    console.log('editing. . . ', data);
     this.props.editUser(data, this.context.router)
   }
 
@@ -53,6 +52,7 @@ class EditProfile extends React.Component {
         {isAuthenticated &&
           <div>
             <button type="button" onClick={this.handleDelete}>Delete Account</button>
+            <p>Edit desired fields and submit.</p>
             <EditProfileForm onSubmit={this.handleEdit} currentUser={currentUser} />
           </div>
         }
