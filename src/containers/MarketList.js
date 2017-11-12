@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Market from '../components/Market';
 import Navbar from './Navbar';
-import { filterWatching } from '../utils/MarketUtils';
+import { filterWatching, sortByPair } from '../utils/MarketUtils';
 import { addWatching, removeWatching } from '../actions/watching';
 
 type Props = {
@@ -79,7 +79,8 @@ class Watching extends React.Component {
 export default connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
-    watched: state.session.currentUser.markets,
+    watched: filterWatching(state.channel.market_data,
+      state.session.currentUser.markets).watched,
     unwatched: filterWatching(state.channel.market_data,
       state.session.currentUser.markets).unwatched,
     currentUser: state.session.currentUser,

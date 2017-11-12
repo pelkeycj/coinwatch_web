@@ -41,9 +41,18 @@ export default {
 
   post(url, data) {
     const body = JSON.stringify(data);
-
     return fetch(`${API}${url}`, {
       method: 'POST',
+      headers: headers(),
+      body,
+    })
+      .then(parseResponse);
+  },
+
+  patch(url, data) {
+    const body = JSON.stringify(data);
+    return fetch(`${API}${url}`, {
+      method: 'PATCH',
       headers: headers(),
       body,
     })
