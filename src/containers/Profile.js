@@ -28,7 +28,7 @@ class Profile extends React.Component {
             <div>
               <div style={{ display: 'inline' }}>
                 <h1>Profile</h1>
-                <Link to="profile/edit" component={EditProfile}>edit</Link>
+                <Link to="profile/edit">edit</Link>
               </div>
               <h3>Username: {currentUser.username}</h3>
               <h3>Email: {currentUser.email}</h3>
