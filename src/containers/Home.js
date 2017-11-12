@@ -42,9 +42,9 @@ class Home extends React.Component {
         <Navbar />
         {!isAuthenticated &&
           <div>
-            <Link to="/register" component={Register}>Sign Up</Link>
+            <Link to="/register">Sign Up</Link>
             <br />
-            <Link to="/signin" component={Signin}>Sign In</Link>
+            <Link to="/signin">Sign In</Link>
           </div>
         }
         {isAuthenticated &&

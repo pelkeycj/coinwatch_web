@@ -37,22 +37,22 @@ class Navbar extends React.Component {
     const { isAuthenticated, currentUser } = this.props;
     return (
       <nav>
-        <Link to='/' component={Home}>Coinwatch</Link>
+        <Link to='/'>Coinwatch</Link>
         <span>   </span>
         {isAuthenticated &&
           <div style={{ display: 'inline'}}>
-            <Link to="/watching" component={Watching}>Watching</Link>
+            <Link to="/watching">Watching</Link>
             <span>    </span>
-            <Link to="/profile" component={Profile}> {currentUser.username}</Link>
+            <Link to="/profile"> {currentUser.username}</Link>
             <span>   |  </span>
             <button type="link" onClick={this.handleLogout}>Sign Out</button>
           </div>
         }
         {!isAuthenticated &&
           <div style={{ display: 'inline' }}>
-            <Link to="/signin" component={Signin}>Sign In </Link>
+            <Link to="/signin">Sign In </Link>
             <span>   </span>
-            <Link to="/register" component={Register}>Register</Link>
+            <Link to="/register">Register</Link>
           </div>
         }
       </nav>

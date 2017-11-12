@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 //  import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; //  to connect to store
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { authenticate } from '../actions/session'; //  authenticate on mount
 import { connectToChannel } from '../actions/channel';
 import Home from './Home';
@@ -18,6 +18,7 @@ import EditProfile from './EditProfile';
 type Props = {
   authenticate: () => void,
   connectToChannel: () => void,
+  isAuthenticated: boolean,
 }
 
 class App extends Component {
@@ -34,26 +35,41 @@ class App extends Component {
   props: Props
 
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/signin" component={Signin} />
-          <Route exact path="/watching" component={Watching} />
-          <Route exact path="/watching/new" component={AddWatching} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/profile/edit" component={EditProfile} />
-          {/*TODO we need user profiles
-             TODO probably need to add notifications */}
-          {/* TODO protect routes,  ensure auth */}
+          <RestrictedRoute authed={!isAuthenticated} exact path="/register" component={Register} />
+          <RestrictedRoute authed={!isAuthenticated} exact path="/signin" component={Signin} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/watching" component={Watching} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/watching/new" component={AddWatching} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/profile" component={Profile} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/profile/edit" component={EditProfile} />
         </Switch>
       </BrowserRouter>
     );
   }
 }
 
+// if authed is true, present component, else redirect to landing page
+function RestrictedRoute({ component: Component, authed, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props => authed === true
+        ? <Component />
+        : <Redirect to={{ pathname: '/' }} />)
+      }
+    />
+  );
+}
+
+//  private route
+
 export default connect(
-  null, //  the state?
+  state => ({
+    isAuthenticated: state.session.isAuthenticated,
+  }),
   { authenticate, connectToChannel }, //  the action to perform
 )(App);
