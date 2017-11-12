@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signout } from '../actions/session';
-import Home from './Home';
-import Watching from './Watching';
-import Register from './Register';
-import Signin from './Signin';
-import Profile from './Profile';
+
 
 type Props = {
   isAuthenticated: boolean,
