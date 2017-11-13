@@ -2,14 +2,27 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { css, StyleSheet } from 'aphrodite';
+import { Button } from 'react-bootstrap';
 import Input from './Input';
+import Colors from '../static/Colors'
 
-//  TODO improve this
 const styles = StyleSheet.create({
   card: {
     maxWidth: '500px',
-    padding: '3rem 4rem',
+    height: '800px',
+    padding: '25rem 4rem',
     margin: '2rem auto',
+  },
+  button: {
+    borderRadius: '25px',
+    borderColor: Colors.primary,
+    color: Colors.primary,
+    background: 'white',
+    marginTop: '10px',
+    ':hover': {
+      color: 'black',
+      background: Colors.primary,
+    },
   },
 });
 
@@ -35,13 +48,16 @@ class SigninForm extends React.Component {
     const { handleSubmit, submitting } = this.props;
     return (
       <form className={css(styles.card)} onSubmit={handleSubmit(this.handleSubmit)} >
-        <h3>Sign In</h3>
+        <div style={{ textAlign: 'center' }}>
+          <h1>Sign In</h1>
+        </div>
         <Field
           name="username"
           type="text"
           component={Input}
           placeholder="Username"
           className="form-control"
+          style={{ marginTop: '10px' }}
         />
         <Field
           name="password"
@@ -49,14 +65,17 @@ class SigninForm extends React.Component {
           component={Input}
           placeholder="Password"
           className="form-control"
+          style={{ marginTop: '10px' }}
         />
-        <button
-          type="submit"
-          disabled={submitting}
-          className="btn btn-primary"
-        >
-          {submitting ? 'Submitting . . .' : 'Sign In'}
-        </button>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            type="submit"
+            disabled={submitting}
+            className={css(styles.button)}
+          >
+            {submitting ? 'Submitting . . .' : 'Sign In'}
+          </Button>
+        </div>
       </form>
     );
   }

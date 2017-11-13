@@ -40,12 +40,12 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          <RestrictedRoute authed={!isAuthenticated} exact path="/register" component={Register} />
-          <RestrictedRoute authed={!isAuthenticated} exact path="/signin" component={Signin} />
-          <RestrictedRoute authed={isAuthenticated} exact path="/watching" component={Watching} />
-          <RestrictedRoute authed={isAuthenticated} exact path="/watching/new" component={AddWatching} />
-          <RestrictedRoute authed={isAuthenticated} exact path="/profile" component={Profile} />
-          <RestrictedRoute authed={isAuthenticated} exact path="/profile/edit" component={EditProfile} />
+          <RestrictedRoute authed={!isAuthenticated} exact path="/register" redir="/" component={Register} />
+          <RestrictedRoute authed={!isAuthenticated} exact path="/signin" redir="/" component={Signin} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/watching" redir="/" component={Watching} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/watching/new"  redir="/" component={AddWatching} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/profile" redir="/" component={Profile} />
+          <RestrictedRoute authed={isAuthenticated} exact path="/profile/edit" redir="/" component={EditProfile} />
         </Switch>
       </BrowserRouter>
     );
@@ -53,13 +53,13 @@ class App extends Component {
 }
 
 // if authed is true, present component, else redirect to landing page
-function RestrictedRoute({ component: Component, authed, ...rest }) {
+function RestrictedRoute({ component: Component, redir, authed, ...rest }) {
   return (
     <Route
       {...rest}
       render={(props => authed === true
         ? <Component />
-        : <Redirect to={{ pathname: '/' }} />)
+        : <Redirect to={{ pathname: redir }} />)
       }
     />
   );

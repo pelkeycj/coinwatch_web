@@ -5,9 +5,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { css, StyleSheet } from 'react-bootstrap';
 import { register } from '../actions/session';
 import RegisterForm from '../components/RegisterForm';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 
 type Props = {
   register: () => void,
@@ -32,7 +33,7 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navigation />
         <RegisterForm onSubmit={this.handleRegister} />
       </div>
     );

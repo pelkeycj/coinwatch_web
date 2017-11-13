@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import EditProfileForm from '../components/EditProfileForm';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 import { deleteUser, editUser } from '../actions/session';
 
 type Props = {
@@ -47,15 +47,18 @@ class EditProfile extends React.Component {
 
     return (
       <div>
-        <Navbar />
-        <h1>Edit Profile</h1>
-        {isAuthenticated &&
-          <div>
-            <button type="button" onClick={this.handleDelete}>Delete Account</button>
-            <p>Edit desired fields and submit.</p>
-            <EditProfileForm onSubmit={this.handleEdit} currentUser={currentUser} />
-          </div>
-        }
+        <Navigation />
+        <div style={{ marginTop: '100px' }}>
+          {isAuthenticated &&
+            <div>
+              <EditProfileForm
+                onSubmit={this.handleEdit}
+                onDelete={this.handleDelete}
+                currentUser={currentUser}
+              />
+            </div>
+          }
+        </div>
       </div>
     );
   }
