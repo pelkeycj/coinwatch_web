@@ -4,13 +4,20 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Register from './Register';
+import { css, StyleSheet } from 'aphrodite';
 import { signout } from '../actions/session';
-import Signin from './Signin';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
+import Banner from '../components/Banner';
+import InfoSection from '../components/InfoSection';
+import Images from '../static/Images';
+import Strings from '../static/Strings';
 
+
+const styles = StyleSheet.create({
+
+});
 
 type Props = {
   signout: () => void,
@@ -28,6 +35,12 @@ class Home extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      this.context.router.history.push('/watching');
+    }
+  }
+
   props: Props
 
   handleLogout() {
@@ -36,23 +49,18 @@ class Home extends React.Component {
 
   render() {
     const { currentUser, isAuthenticated } = this.props;
-
     return (
       <div>
-        <Navbar />
-        {!isAuthenticated &&
-          <div>
-            <Link to="/register">Sign Up</Link>
-            <br />
-            <Link to="/signin">Sign In</Link>
-          </div>
-        }
-        {isAuthenticated &&
-          <div>
-            <span>{currentUser.username}</span>
-            <button type="button" onClick={this.handleLogout}>Sign out</button>
-          </div>
-        }
+        <Navigation />
+        <Banner />
+        {/*}
+        <InfoSection
+          text={Strings.section_1_text}
+          img={Images.stock_graph}
+          text_first={true}
+        />
+        */}
+
       </div>
     );
   }

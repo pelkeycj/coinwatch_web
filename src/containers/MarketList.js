@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Market from '../components/Market';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 import { filterWatching, sortByPair } from '../utils/MarketUtils';
 import { addWatching, removeWatching } from '../actions/watching';
 
@@ -54,7 +54,7 @@ class Watching extends React.Component {
 
     return (
       <div>
-        <Navbar />
+        <Navigation />
         <h1>{header}</h1>
         {!adding &&
           <Link to="/watching/new">add</Link>

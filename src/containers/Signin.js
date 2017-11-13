@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signin } from '../actions/session';
 import SigninForm from '../components/SigninForm';
-import Navbar from './Navbar';
+import Navigation from './Navigation';
 
 type Props = {
   signin: () => void,
@@ -28,10 +28,9 @@ class Signin extends React.Component {
   }
 
   render() {
-    //  TODO nav
     return (
       <div>
-        <Navbar />
+        <Navigation />
         <SigninForm onSubmit={this.handleSignin} />;
       </div>
     );
