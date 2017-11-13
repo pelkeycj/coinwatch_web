@@ -37,3 +37,23 @@ export function filterWatching(allMarkets, watchedMarkets) {
     unwatched: sortByPair(unwatched),
   };
 }
+
+//  group markets as a list mapped to key (asset pair)
+export function groupByAssetPair(markets) {
+  const groups = {};
+  if (!markets) {
+    return groups;
+  }
+
+  markets.forEach((market) => {
+    let exchanges = groups[market.pair];
+    if (!exchanges) {
+      exchanges = [];
+    }
+    exchanges.push(market);
+    groups[market.pair] = exchanges;
+  });
+
+  console.log('groups', groups);
+  return groups;
+}

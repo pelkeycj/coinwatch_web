@@ -49,18 +49,18 @@ class Profile extends React.Component {
           <Navigation />
           {isAuthenticated &&
             <div className={css(styles.container)}>
-            <Row align="center" >
-              <Col md={6} offset={{ md: 3 }} style={{ textAlign: 'center' }}>
-                <h1>Your Profile</h1>
-              </Col>
-              <Col md={3}>
-              <Link to="/profile/edit">
-                <Button type="submit" onClick={this.handleDelete} className={css(styles.button)}>
-                  Edit
-                </Button>
-              </Link>
-              </Col>
-            </Row>
+              <Row align="center" >
+                <Col md={6} offset={{ md: 3 }} style={{ textAlign: 'center' }}>
+                  <h1>Your Profile</h1>
+                </Col>
+                <Col md={3}>
+                  <Link to="/profile/edit">
+                    <Button type="submit" onClick={this.handleDelete} className={css(styles.button)}>
+                      Edit
+                    </Button>
+                  </Link>
+                </Col>
+              </Row>
               <h3>Username: {currentUser.username}</h3>
               <h3>Email: {currentUser.email}</h3>
             </div>

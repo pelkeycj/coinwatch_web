@@ -37,7 +37,9 @@ class Watching extends React.Component {
   }
 
   render() {
-    const { watched, unwatched, isAuthenticated, currentUser, adding } = this.props;
+    const {
+      watched, unwatched, isAuthenticated, currentUser, adding
+    } = this.props;
     let header;
     let data;
 
@@ -48,9 +50,6 @@ class Watching extends React.Component {
       header = 'Watch New Markets';
       data = unwatched;
     }
-
-    console.log('watched', watched);
-    console.log('unwatched', unwatched);
 
     return (
       <div>
@@ -76,13 +75,18 @@ class Watching extends React.Component {
   }
 }
 
+//  TODO may be able to remove double work in filtering
 export default connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
-    watched: filterWatching(state.channel.market_data,
-      state.session.currentUser.markets).watched,
-    unwatched: filterWatching(state.channel.market_data,
-      state.session.currentUser.markets).unwatched,
+    watched: filterWatching(
+      state.channel.market_data,
+      state.session.currentUser.markets
+    ).watched,
+    unwatched: filterWatching(
+      state.channel.market_data,
+      state.session.currentUser.markets
+    ).unwatched,
     currentUser: state.session.currentUser,
   }),
   { addWatching, removeWatching },
