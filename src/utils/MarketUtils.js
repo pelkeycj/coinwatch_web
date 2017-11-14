@@ -54,6 +54,5 @@ export function groupByAssetPair(markets) {
     groups[market.pair] = exchanges;
   });
 
-  console.log('groups', groups);
   return groups;
 }
