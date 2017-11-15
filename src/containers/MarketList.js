@@ -84,7 +84,7 @@ class Watching extends React.Component {
     } else {
       header = 'Watch New Markets';
       data = unwatched;
-      text = 'Follow new markets monitor them on your dashboard.';
+      text = 'Follow new markets to monitor them on your dashboard.';
     }
 
     data = groupByAssetPair(data);

@@ -67,23 +67,27 @@ class MarketChart extends React.Component {
   }
 
   componentDidMount() {
+    //this.interval = setInterval(this.getData, 60);
     this.getData();
   }
 
+  componentWillUnmount() {
+    //clearInterval(this.interval);
+  }
+
   getData() {
+    console.log('getting');
     const now = new Date().getTime() / 1000;
     const delta = now - this.state.lastUpdate;
     const { setting } = this.state;
 
+    /*
     if ((setting === 'Daily' && delta < 86400)
       || (setting === 'Hourly' && delta < 3600)
-      || (setting === 'Minutely' && delta < 60)) {
+      || (setting === 'Minutely' && delta < 10)) {
       return;
     }
-
-    if ((now - this.state.lastUpdate) < 60) {
-      return;
-    }
+    */
 
     const { market } = this.props;
     const assets = this.splitAssetPair(market.pair.toUpperCase());
@@ -91,12 +95,15 @@ class MarketChart extends React.Component {
 
     switch (this.state.setting) {
       case 'Daily':
+        //this.interval = setInterval(this.getData, 86400);
         this.histoDay(assets.fsym, assets.tsym, exchange);
         break;
       case 'Hourly':
+        //this.interval = setInterval(this.getData, 3600);
         this.histoHour(assets.fsym, assets.tsym, exchange);
         break;
       case 'Minutely':
+        //this.interval = setInterval(this.getData, 30);
         this.histoMinute(assets.fsym, assets.tsym, exchange);
         break;
       default:
@@ -133,6 +140,7 @@ class MarketChart extends React.Component {
       });
     });
     this.setState({ history, lastUpdate: now });
+    this.forceUpdate();
   }
 
   splitAssetPair(pair) {
