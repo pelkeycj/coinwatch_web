@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-
   button: {
     borderRadius: '25px',
     borderColor: Colors.primary,
@@ -57,6 +56,7 @@ class MarketChart extends React.Component {
     super(props);
     this.state = {
       history: [],
+      error: false,
       lastUpdate: 0,
       setting: 'Daily',
     };
@@ -64,30 +64,25 @@ class MarketChart extends React.Component {
     this.getData = this.getData.bind(this);
     this.processData = this.processData.bind(this);
     this.setTimeFrame = this.setTimeFrame.bind(this);
+    this.setError = this.setError.bind(this);
   }
 
   componentDidMount() {
-    //this.interval = setInterval(this.getData, 60);
     this.getData();
   }
 
-  componentWillUnmount() {
-    //clearInterval(this.interval);
-  }
-
   getData() {
-    console.log('getting');
     const now = new Date().getTime() / 1000;
     const delta = now - this.state.lastUpdate;
     const { setting } = this.state;
 
-    /*
+
     if ((setting === 'Daily' && delta < 86400)
       || (setting === 'Hourly' && delta < 3600)
-      || (setting === 'Minutely' && delta < 10)) {
+      || (setting === 'Minutely' && delta < 60)) {
       return;
     }
-    */
+
 
     const { market } = this.props;
     const assets = this.splitAssetPair(market.pair.toUpperCase());
@@ -95,15 +90,12 @@ class MarketChart extends React.Component {
 
     switch (this.state.setting) {
       case 'Daily':
-        //this.interval = setInterval(this.getData, 86400);
         this.histoDay(assets.fsym, assets.tsym, exchange);
         break;
       case 'Hourly':
-        //this.interval = setInterval(this.getData, 3600);
         this.histoHour(assets.fsym, assets.tsym, exchange);
         break;
       case 'Minutely':
-        //this.interval = setInterval(this.getData, 30);
         this.histoMinute(assets.fsym, assets.tsym, exchange);
         break;
       default:
@@ -113,17 +105,24 @@ class MarketChart extends React.Component {
 
   histoDay(fsym, tsym, exchange) {
     CryptoCompare.histoDay(fsym, tsym, { exchange, limit: 'none' })
-      .then(data => this.processData(data));
+      .then(data => this.processData(data))
+      .catch(() => this.setError(true));
   }
 
   histoHour(fsym, tsym, exchange) {
     CryptoCompare.histoHour(fsym, tsym, { exchange, limit: 5000 })
-      .then(data => this.processData(data));
+      .then(data => this.processData(data))
+      .catch(() => this.setError(true));
   }
 
   histoMinute(fsym, tsym, exchange) {
     CryptoCompare.histoMinute(fsym, tsym, { exchange, limit: 5000 })
-      .then(data => this.processData(data));
+      .then(data => this.processData(data))
+      .catch(() => this.setError(true));
+  }
+
+  setError(error) {
+    this.setState({ error });
   }
 
   processData(data) {
@@ -139,7 +138,7 @@ class MarketChart extends React.Component {
         low: d.low,
       });
     });
-    this.setState({ history, lastUpdate: now });
+    this.setState({ history, lastUpdate: now, error: false });
     this.forceUpdate();
   }
 
@@ -174,7 +173,7 @@ class MarketChart extends React.Component {
   render()  {
     this.getData();
     const { market } = this.props;
-    const { setting } = this.state;
+    const { setting, error } = this.state;
 
     const daily_btn = this.getBtn(setting, 'Daily');
     const hourly_btn = this.getBtn(setting, 'Hourly');
@@ -213,9 +212,14 @@ class MarketChart extends React.Component {
                   className={css(styles.chart)}
                 />
               }
-              {this.state.history.length === 0 &&
+              {error &&
                 <div className={css(styles.unavailable)}>
                   <h3>No data available</h3>
+                </div>
+              }
+              {this.state.history.length === 0 && !error &&
+                <div className={css(styles.unavailable)}>
+                  <h3>Loading . . .</h3>
                 </div>
               }
             </Col>
