@@ -1,7 +1,8 @@
 //  @flow
 import React from 'react';
 import { Row, Col } from 'react-grid-system';
-import { css , StyleSheet } from 'aphrodite';
+import { Link } from 'react-router-dom';
+import { css, StyleSheet } from 'aphrodite';
 import { Button } from 'react-bootstrap';
 
 const styles = StyleSheet.create({
@@ -50,7 +51,9 @@ class AssetPairPanelRow extends React.Component {
           >
             <span className={glyph} />
           </Button>
-          <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': ' + market.rate}</p>
+          <Link to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
+            <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': ' + market.rate}</p>
+          </Link>
         </Col>
       </Row>
     );

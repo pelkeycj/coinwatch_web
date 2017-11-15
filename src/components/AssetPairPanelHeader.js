@@ -3,6 +3,7 @@ import React from 'react';
 import { Row, Col } from 'react-grid-system';
 import { css, StyleSheet } from 'aphrodite';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const styles = StyleSheet.create({
   add_btn: {
@@ -37,7 +38,7 @@ class AssetPairPanelHeader extends React.Component {
   props: Props
 
   render() {
-    const { assetPair, adding } = this.props;
+    const { assetPair, adding, markets } = this.props;
     let glyph = "glyphicon glyphicon-remove";
     if (adding) {
       glyph = "glyphicon glyphicon-plus";
@@ -55,7 +56,9 @@ class AssetPairPanelHeader extends React.Component {
             <span className={glyph} />
           </Button>
 
-          <p className={css(styles.title)}>{assetPair.toUpperCase()}</p>
+          <Link to={{ pathname: "/chart/markets", state: { markets} }}>
+            <p className={css(styles.title)}>{assetPair.toUpperCase()}</p>
+          </Link>
         </Col>
       </Row>
     );
