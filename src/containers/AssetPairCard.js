@@ -1,17 +1,19 @@
 //  @flow
 import React from 'react';
 import { Row, Col } from 'react-grid-system';
+import { css, StyleSheet } from 'aphrodite';
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import AssetPairPanelHeader from '../components/AssetPairPanelHeader';
 import AssetPairPanelRow from '../components/AssetPairPanelRow';
 import { addWatching, removeWatching } from '../actions/watching';
 
-// TODO create MarketRate -> Maybe link to MarketChart component that
-      // will fetch data from backend (relayed) and use D3/chart.js to
-      // do some fancy stock graph. Maybe we'd want it to re fetch every 30s?
+const styles = StyleSheet.create({
+  card: {
+    minWidth: '400px',
+  },
+});
 
-      // maybe use a modal
 type Props = {
   addWatching: () => void,
   removeWatching: () => void,
@@ -33,7 +35,6 @@ class AssetPairCard extends React.Component {
 
   handleOne(data) {
     const params = { market_user: { user_id: this.props.currentUser.id, market_id: data.id } };
-    console.log('handle one', params);
     if (this.props.adding) {
       this.props.addWatching(params);
     } else {
@@ -48,7 +49,6 @@ class AssetPairCard extends React.Component {
       markets.push(market.id);
     });
     const params = { user_id: this.props.currentUser.id, markets };
-    console.log('handle all', params);
     if (this.props.adding) {
       this.props.addWatching(params);
     } else {

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     background: 'white',
     marginTop: '10px',
     ':hover': {
-      color: 'black',
+      color: 'white',
       background: Colors.primary,
     },
   },

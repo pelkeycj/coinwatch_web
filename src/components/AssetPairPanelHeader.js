@@ -4,6 +4,7 @@ import { Row, Col } from 'react-grid-system';
 import { css, StyleSheet } from 'aphrodite';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Colors from '../static/Colors';
 
 const styles = StyleSheet.create({
   add_btn: {
@@ -14,6 +15,15 @@ const styles = StyleSheet.create({
     display: 'inline',
     marginTop: 'auto',
     marginBottom: 'auto',
+  },
+
+  link: {
+    color: 'black',
+    textDecoration: 'none',
+    ':hover': {
+      color: 'gray',
+      textDecoration: 'none',
+    },
   },
 });
 
@@ -56,7 +66,7 @@ class AssetPairPanelHeader extends React.Component {
             <span className={glyph} />
           </Button>
 
-          <Link to={{ pathname: "/chart/markets", state: { markets} }}>
+          <Link className={css(styles.link)}to={{ pathname: "/chart/markets", state: { markets} }}>
             <p className={css(styles.title)}>{assetPair.toUpperCase()}</p>
           </Link>
         </Col>

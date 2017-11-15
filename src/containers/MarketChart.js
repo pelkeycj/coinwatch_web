@@ -2,11 +2,13 @@
 import React from 'react';
 import { Row, Col } from 'react-grid-system';
 import { css, StyleSheet } from 'aphrodite';
+import { ButtonToolbar, Button, ButtonGroup } from 'react-bootstrap';
 import CryptoCompare from 'cryptocompare';
 import { timeParse } from 'd3-time-format';
 import Navigation from './Navigation';
 import CandleStickChartContinuous from '../components/CandleStickChartContinuous';
 import Divider from '../components/Divider';
+import Colors from '../static/Colors';
 
 const styles = StyleSheet.create({
   chart: {
@@ -19,6 +21,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+
+
+  button: {
+    borderRadius: '25px',
+    borderColor: Colors.primary,
+    color: Colors.primary,
+    background: 'white',
+    ':hover': {
+      color: 'white',
+      background: Colors.primary,
+    },
+  },
+
+  button_select: {
+    borderRadius: '25px',
+    borderColor: Colors.primary,
+    color: 'white',
+    background: Colors.primary,
+  }
 });
 
 type Props = {
@@ -38,6 +59,7 @@ class MarketChart extends React.Component {
 
     this.getData = this.getData.bind(this);
     this.processData = this.processData.bind(this);
+    this.setTimeFrame = this.setTimeFrame.bind(this);
   }
 
   componentDidMount() {
@@ -77,20 +99,19 @@ class MarketChart extends React.Component {
     }
   }
 
-  props: Props
 
   histoDay(fsym, tsym, exchange) {
-    CryptoCompare.histoDay(fsym, tsym, { exchange: exchange, limit: 'none' })
+    CryptoCompare.histoDay(fsym, tsym, { exchange, limit: 'none' })
       .then(data => this.processData(data));
   }
 
   histoHour(fsym, tsym, exchange) {
-    CryptoCompare.histoHour(fsym, tsym, { exchange: exchange, limit: 5000 })
+    CryptoCompare.histoHour(fsym, tsym, { exchange, limit: 5000 })
       .then(data => this.processData(data));
   }
 
   histoMinute(fsym, tsym, exchange) {
-    CryptoCompare.histoMinute(fsym, tsym, { exchange: exchange, limit: 5000 })
+    CryptoCompare.histoMinute(fsym, tsym, { exchange, limit: 5000 })
       .then(data => this.processData(data));
   }
 
@@ -107,7 +128,7 @@ class MarketChart extends React.Component {
         low: d.low,
       });
     });
-    this.setState({ history: history, lastUpdate: now });
+    this.setState({ history, lastUpdate: now });
   }
 
   splitAssetPair(pair) {
@@ -117,9 +138,35 @@ class MarketChart extends React.Component {
     };
   }
 
+  setTimeFrame(setting) {
+    this.setState({ setting, lastUpdate: 0 });
+    this.getData();
+  }
+
+  getBtn(setting, target) {
+    if (setting === target) {
+      return <Button className={css(styles.button_select)}>{target}</Button>;
+    }
+    return (
+      <Button
+        onClick={() => this.setTimeFrame(target)}
+        className={css(styles.button)}
+      >
+        {target}
+      </Button>
+    );
+  }
+
+  props: Props
+
   render()  {
     this.getData();
     const { market } = this.props;
+    const { setting } = this.state;
+
+    const daily_btn = this.getBtn(setting, 'Daily');
+    const hourly_btn = this.getBtn(setting, 'Hourly');
+    const min_btn = this.getBtn(setting, 'Minutely');
 
     return (
       <div>
@@ -127,7 +174,22 @@ class MarketChart extends React.Component {
         <div className={css(styles.main)}>
           <Row className={css(styles.chart)}>
             <Col md={8} offset={{ md: 2 }}>
-              <h3>{market.exchange.toUpperCase() + ': ' + market.pair.toUpperCase()}</h3>
+              <Row align="center">
+                <Col md={8}>
+                  <h3>{market.exchange.toUpperCase() + ': ' + market.pair.toUpperCase()}</h3>
+                </Col>
+              </Row>
+              <Row style={{ marginBottom: '10px' }}>
+                <Col md={6}>
+                  <ButtonToolbar>
+                    <ButtonGroup >
+                      {daily_btn}
+                      {hourly_btn}
+                      {min_btn}
+                    </ButtonGroup>
+                  </ButtonToolbar>
+                </Col>
+              </Row>
               <Divider />
             </Col>
           </Row>

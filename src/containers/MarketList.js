@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     background: 'white',
     marginTop: '10px',
     ':hover': {
-      color: 'black',
+      color: 'white',
       background: Colors.primary,
     },
   },
@@ -75,13 +75,16 @@ class Watching extends React.Component {
     } = this.props;
     let header;
     let data;
+    let text;
 
     if (!adding) {
       header = 'Watched Markets';
       data = watched;
+      text = 'Here are the markets you follow. Select a market or group of markets to view price charts.';
     } else {
       header = 'Watch New Markets';
       data = unwatched;
+      text = 'Follow new markets monitor them on your dashboard.';
     }
 
     data = groupByAssetPair(data);
@@ -92,16 +95,17 @@ class Watching extends React.Component {
           <Row align="center" style={{ marginBottom: '50px' }}>
             <Col md={4} offset={{ md: 4 }} style={{ textAlign: 'center' }}>
               <h1>{header}</h1>
+              <p>{text}</p>
             </Col>
-          <Col md={1} style={{ textAlign: 'left' }}>
-            {!adding &&
-              <Link to="/watching/new">
-                <Button type="submit" className={css(styles.button)} >
-                  Add
-                </Button>
-              </Link>
-            }
-          </Col>
+            <Col md={1} style={{ textAlign: 'left' }}>
+              {!adding &&
+                <Link to="/watching/new">
+                  <Button type="submit" className={css(styles.button)} >
+                    Add
+                  </Button>
+                </Link>
+              }
+            </Col>
           </Row>
           {isAuthenticated && data &&
             Object.keys(data).map((assetPair) => {

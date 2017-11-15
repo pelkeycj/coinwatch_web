@@ -12,6 +12,19 @@ const styles = StyleSheet.create({
     marginBottom: 'auto',
     paddingLeft: '5px',
   },
+
+  link: {
+    color: 'black',
+    textDecoration: 'none',
+    ':hover': {
+      color: 'gray',
+      textDecoration: 'none',
+    },
+  },
+
+  glyph_button: {
+    backgroundColor: 'white',
+  }
 });
 
 type Props = {
@@ -51,7 +64,7 @@ class AssetPairPanelRow extends React.Component {
           >
             <span className={glyph} />
           </Button>
-          <Link to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
+          <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
             <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': ' + market.rate}</p>
           </Link>
         </Col>
