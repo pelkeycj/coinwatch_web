@@ -32,7 +32,7 @@ class AssetPairCard extends React.Component {
   props: Props
 
   handleOne(data) {
-    const params = { user_id: this.props.currentUser.id, market_id: data.id};
+    const params = { market_user: { user_id: this.props.currentUser.id, market_id: data.id } };
     console.log('handle one', params);
     if (this.props.adding) {
       this.props.addWatching(params);
@@ -43,7 +43,17 @@ class AssetPairCard extends React.Component {
   }
 
   handleAll(data) {
-    console.log('handle all');
+    const markets = [];
+    data.forEach((market) => {
+      markets.push(market.id);
+    });
+    const params = { user_id: this.props.currentUser.id, markets };
+    console.log('handle all', params);
+    if (this.props.adding) {
+      this.props.addWatching(params);
+    } else {
+      this.props.removeWatching(params);
+    }
     this.forceUpdate();
   }
 

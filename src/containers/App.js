@@ -13,6 +13,7 @@ import Watching from './Watching';
 import AddWatching from './AddWatching';
 import Profile from './Profile';
 import EditProfile from './EditProfile';
+import MarketShow from './MarketShow';
 
 
 type Props = {
@@ -46,6 +47,7 @@ class App extends Component {
           <RestrictedRoute authed={isAuthenticated} exact path="/watching/new"  redir="/" component={AddWatching} />
           <RestrictedRoute authed={isAuthenticated} exact path="/profile" redir="/" component={Profile} />
           <RestrictedRoute authed={isAuthenticated} exact path="/profile/edit" redir="/" component={EditProfile} />
+          <Route exact path="/chart" component={MarketShow} />
         </Switch>
       </BrowserRouter>
     );
