@@ -11,8 +11,13 @@ import Divider from '../components/Divider';
 import Colors from '../static/Colors';
 
 const styles = StyleSheet.create({
-  chart: {
+  main: {
     marginTop: '50px',
+  },
+
+  chart: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 
   unavailable: {
@@ -46,7 +51,6 @@ type Props = {
   market: Object,
 }
 
-// TODO buttons for states
 // TODO render loading icon? if error, render error
 class MarketChart extends React.Component {
   constructor(props) {
@@ -172,7 +176,7 @@ class MarketChart extends React.Component {
       <div>
         <Navigation />
         <div className={css(styles.main)}>
-          <Row className={css(styles.chart)}>
+          <Row className={css(styles.main)}>
             <Col md={8} offset={{ md: 2 }}>
               <Row align="center">
                 <Col md={8}>
@@ -198,8 +202,7 @@ class MarketChart extends React.Component {
               {this.state.history.length > 0 &&
                 <CandleStickChartContinuous
                   data={this.state.history}
-                  width={1000}
-                  ratio={2}
+                  className={css(styles.chart)}
                 />
               }
               {this.state.history.length === 0 &&
@@ -210,7 +213,6 @@ class MarketChart extends React.Component {
             </Col>
           </Row>
         </div>
-
       </div>
     );
   }
