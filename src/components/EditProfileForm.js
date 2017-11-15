@@ -11,8 +11,8 @@ import Colors from '../static/Colors';
 const styles = StyleSheet.create({
   card: {
     maxWidth: '600px',
-    height: '800px',
-    padding: '15rem 4rem',
+    height: '500px',
+    padding: '10rem 4rem',
     margin: '2rem auto',
   },
 

@@ -31,13 +31,11 @@ export function register(data, router) {
 }
 
 export function signout(router) {
-  console.log('signing out');
   return dispatch => api.delete('/session')
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'SIGNOUT' });
       router.history.push('/');
-      console.log('signed out');
     });
 }
 
@@ -45,7 +43,6 @@ export function editUser(data, router) {
   const url = `/users/${data.id}`;
   return dispatch => api.patch(url, data)
     .then((resp) => {
-      console.log('updated user', resp);
       dispatch({ type: 'AUTH_SUCCESS', resp });
       dispatch(reset('edit_profile'));
       router.history.push('/profile');
