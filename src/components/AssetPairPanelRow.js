@@ -40,7 +40,6 @@ class AssetPairPanelRow extends React.Component {
   }
 
   handleClick() {
-    console.log('clicked');
     this.props.handleSubmit(this.props.market);
   }
 
@@ -55,7 +54,7 @@ class AssetPairPanelRow extends React.Component {
 
     return (
       <Row align="center">
-        <Col md={12}>
+        <Col md={1}>
           <Button
             type="button"
             style={{ display: 'inline' }}
@@ -64,9 +63,25 @@ class AssetPairPanelRow extends React.Component {
           >
             <span className={glyph} />
           </Button>
+          </Col>
+          {/*
           <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
-            <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': ' + market.rate}</p>
+            <p style={{ display: 'inline' }} className={css(styles.market)}>{market.exchange.toUpperCase() + ': '}</p>
           </Link>
+          <p style={{ display: 'inline', color: market.color }}>{market.rate}</p>
+        </Col>
+        */}
+
+
+        <Col md={5}>
+
+        <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
+          <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': '}</p>
+        </Link>
+        </Col>
+
+        <Col md={6} style={{ textAlign: 'right'}}>
+          <p style={{ color: market.color}} className={css(styles.market)}>{ market.rate}</p>
         </Col>
       </Row>
     );
