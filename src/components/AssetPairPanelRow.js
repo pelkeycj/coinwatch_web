@@ -63,7 +63,16 @@ class AssetPairPanelRow extends React.Component {
           >
             <span className={glyph} />
           </Button>
+          </Col>
+          {/*
+          <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
+            <p style={{ display: 'inline' }} className={css(styles.market)}>{market.exchange.toUpperCase() + ': '}</p>
+          </Link>
+          <p style={{ display: 'inline', color: market.color }}>{market.rate}</p>
         </Col>
+        */}
+
+
         <Col md={5}>
 
         <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
@@ -71,21 +80,9 @@ class AssetPairPanelRow extends React.Component {
         </Link>
         </Col>
 
-        <Col md={6} style={{ textAlign: 'left'}}>
-        <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
-          <p className={css(styles.market)}>{ market.rate}</p>
-
-        </Link>
+        <Col md={6} style={{ textAlign: 'right'}}>
+          <p style={{ color: market.color}} className={css(styles.market)}>{ market.rate}</p>
         </Col>
-          {/*
-          <Link className={css(styles.link)} to={{ pathname:"/chart/markets", state: { markets: [market] }}}>
-            <p className={css(styles.market)}>{market.exchange.toUpperCase() + ': ' + market.rate}</p>
-
-          </Link>
-        </Col>
-        */}
-
-
       </Row>
     );
   }

@@ -56,3 +56,31 @@ export function groupByAssetPair(markets) {
 
   return groups;
 }
+
+export function colorByRateChange(old_markets, new_markets) {
+  const map = mapMarkets(old_markets);
+  new_markets.map((market) => {
+    const old_market = map[market.id];
+    let color = 'black';
+    if (old_market && (old_market.rate > market.rate)) {
+      color = 'red';
+    } else if (old_market && (old_market.rate < market.rate)) {
+      color = 'green';
+    }
+    market['color'] = color;
+  });
+  return new_markets;
+}
+
+// turn array of markets into map
+function mapMarkets(markets) {
+  const map = {};
+  if (!markets) {
+    return map;
+  }
+
+  markets.forEach((market) => {
+    map[market.id] = market;
+  });
+  return map;
+}
