@@ -51,7 +51,7 @@ type Props = {
 }
 
 
-class Watching extends React.Component {
+class MarketList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,6 +68,7 @@ class Watching extends React.Component {
     }
     this.forceUpdate();
   }
+
 
   render() {
     const {
@@ -88,6 +89,7 @@ class Watching extends React.Component {
     }
 
     data = groupByAssetPair(data);
+
     return (
       <div>
         <Navigation />
@@ -142,4 +144,4 @@ export default connect(
     currentUser: state.session.currentUser,
   }),
   null,
-)(Watching);
+)(MarketList);
