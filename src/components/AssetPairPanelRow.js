@@ -73,7 +73,7 @@ class AssetPairPanelRow extends React.Component {
         </Col>
 
         <Col md={6} style={{ textAlign: 'right' }}>
-          <p style={{ color: market.color }} className={css(styles.market)}>{ market.rate}</p>
+          <p style={{ color: market.color }} className={css(styles.market)}>{ market.rate + ' (' + market.delta + ')'} </p>
         </Col>
       </Row>
     );
