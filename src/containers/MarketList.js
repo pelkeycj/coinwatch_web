@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from 'aphrodite';
 import { Col, Row } from 'react-grid-system';
+import ReactList from 'react-list';
 import { Button } from 'react-bootstrap';
 import Navigation from './Navigation';
 import { filterWatching, groupByAssetPair } from '../utils/MarketUtils';
@@ -56,6 +57,7 @@ class MarketList extends React.Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   props: Props
@@ -66,34 +68,54 @@ class MarketList extends React.Component {
     } else {
       this.props.removeWatching(data);
     }
-    this.forceUpdate();
   }
 
+  renderItem(index, key) {
+    const { adding, watched, unwatched } = this.props;
+    let data;
+    if (adding) {
+      data = Object.entries(groupByAssetPair(unwatched));
+    } else {
+      data = Object.entries(groupByAssetPair(watched));
+    }
+
+    const panel = data[index];
+    return (
+      <Row key={key}>
+        <Col offset={{ md: 4 }} md={4}>
+          <AssetPairCard
+            adding={this.props.adding}
+            assetPair={panel[0]}
+            markets={panel[1]}
+          />
+        </Col>
+      </Row>
+    );
+  }
 
   render() {
     const {
-      watched, unwatched, isAuthenticated, currentUser, adding
+      watched, unwatched, isAuthenticated, adding,
     } = this.props;
-    let header;
     let data;
+    let header;
     let text;
 
     if (!adding) {
       header = 'Watched Markets';
-      data = watched;
       text = 'Here are the markets you follow. Select a market or group of markets to view price charts.';
+      data = Object.entries(groupByAssetPair(watched));
     } else {
       header = 'Watch New Markets';
-      data = unwatched;
       text = 'Follow new markets to monitor them on your dashboard.';
+      data = Object.entries(groupByAssetPair(unwatched));
     }
-
-    data = groupByAssetPair(data);
 
     return (
       <div>
         <Navigation />
         <div className={css(styles.body)}>
+
           <Row align="center" style={{ marginBottom: '50px' }}>
             <Col md={4} offset={{ md: 4 }} style={{ textAlign: 'center' }}>
               <h1>{header}</h1>
@@ -109,37 +131,32 @@ class MarketList extends React.Component {
               }
             </Col>
           </Row>
+
           {isAuthenticated && data &&
-            Object.keys(data).map((assetPair) => {
-              return (
-                <Row>
-                  <Col offset={{ md: 4 }} md={4}>
-                    <AssetPairCard
-                      adding={adding}
-                      assetPair={assetPair}
-                      markets={data[assetPair]}
-                    />
-                  </Col>
-                </Row>
-              );
-            })}
+
+            <ReactList
+              itemRenderer={this.renderItem}
+              length={data.length}
+              type="variable"
+              pageSize={20}
+            />
+          }
         </div>
       </div>
     )
   }
 }
 
-//  TODO may be able to remove double work in filtering
 export default connect(
   state => ({
     isAuthenticated: state.session.isAuthenticated,
     watched: filterWatching(
       state.channel.market_data,
-      state.session.currentUser.markets
+      state.session.currentUser.markets,
     ).watched,
     unwatched: filterWatching(
       state.channel.market_data,
-      state.session.currentUser.markets
+      state.session.currentUser.markets,
     ).unwatched,
     currentUser: state.session.currentUser,
   }),
