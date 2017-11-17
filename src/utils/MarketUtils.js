@@ -65,11 +65,11 @@ export function viewRateChange(old_markets, new_markets) {
     let delta = 0;
     if (old_market && (old_market.rate > market.rate)) {
       color = 'red';
-      delta =  (market.rate - old_market.rate).toFixed(5);
+      delta =  parseFloat((market.rate - old_market.rate).toFixed(5));
 
     } else if (old_market && (old_market.rate < market.rate)) {
       color = 'green';
-      delta =  '+' + (market.rate - old_market.rate).toFixed(5);
+      delta =  '+' + parseFloat((market.rate - old_market.rate).toFixed(5));
     }
     market['color'] = color;
     market['delta'] = delta;
