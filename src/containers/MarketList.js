@@ -13,7 +13,7 @@ import Colors from '../static/Colors';
 
 const styles = StyleSheet.create({
   body: {
-    maxWidth: '80%',
+    maxWidth: '90%',
     marginTop: '100px',
     marginBottom: '50px',
     marginLeft: 'auto',

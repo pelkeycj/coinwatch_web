@@ -10,7 +10,8 @@ import { addWatching, removeWatching } from '../actions/watching';
 
 const styles = StyleSheet.create({
   card: {
-    minWidth: '400px',
+    minWidth: '100%',
+    width: '100%',
   },
 });
 
