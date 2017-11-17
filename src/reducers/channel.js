@@ -1,7 +1,7 @@
 /*
 * Handles channel actions
 */
-import { colorByRateChange } from '../utils/MarketUtils';
+import { viewRateChange } from '../utils/MarketUtils';
 
 const initialState = {
   market_data: [],
@@ -12,14 +12,14 @@ export default function (state = initialState, action) {
     case 'CHANNEL_JOIN_SUCCESS':
       return {
         ...state,
-        market_data: colorByRateChange(state.market_data, action.resp.market_data),
+        market_data: viewRateChange(state.market_data, action.resp.market_data),
       };
     case 'CHANNEL_JOIN_ERROR':
       return state;
     case 'NEW_MARKET_DATA':
       return {
         ...state,
-        market_data: colorByRateChange(state.market_data, action.resp.market_data),
+        market_data: viewRateChange(state.market_data, action.resp.market_data),
       };
     default:
       return state;
