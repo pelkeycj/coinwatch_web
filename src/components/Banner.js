@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   section: {
     background: Colors.primary,
     width: '100%',
-    height: '950px',
+    height: '100vh',
     borderWidth: '0',
     position: 'relative',
   },
