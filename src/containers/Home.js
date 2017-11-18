@@ -16,7 +16,8 @@ import Strings from '../static/Strings';
 
 
 const styles = StyleSheet.create({
-
+  banner: {
+  },
 });
 
 type Props = {
