@@ -10,6 +10,7 @@ function headers() {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: auth,
+    //Origin: 'http',
   };
 }
 
